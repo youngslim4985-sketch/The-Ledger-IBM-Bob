@@ -32,6 +32,11 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok", app: "THE LEDGER", timestamp: new Date().toISOString() });
 });
 
+// Maximum contract text length accepted by the API (500 000 characters ≈ 500 KB of plain text).
+// This is well above any real-world contract while preventing accidental large-file abuse
+// and keeping AI prompt sizes within a sensible bound.
+const MAX_CONTRACT_TEXT_LENGTH = 500_000;
+
 // API endpoint: Contract AI Analysis & Plain-English Translation
 app.post("/api/analyze-contract", async (req, res) => {
   try {
@@ -39,6 +44,12 @@ app.post("/api/analyze-contract", async (req, res) => {
     
     if (!contractText || typeof contractText !== "string") {
       return res.status(400).json({ error: "contractText parameter is required." });
+    }
+
+    if (contractText.length > MAX_CONTRACT_TEXT_LENGTH) {
+      return res.status(413).json({
+        error: `contractText exceeds the maximum allowed length of ${MAX_CONTRACT_TEXT_LENGTH.toLocaleString()} characters. Please shorten the document and try again.`
+      });
     }
 
     const ai = getGeminiClient();

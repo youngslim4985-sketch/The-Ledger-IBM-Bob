@@ -220,6 +220,17 @@ export const ContractAnalyzer: React.FC<ContractAnalyzerProps> = ({
           reader.onload = (e) => {
             const text = (e.target?.result as string) ?? "";
             setUploadProgress(100);
+
+            // Same empty/minimal check as PDFs
+            if (text.trim().length < 50) {
+              setUploadError("No extractable text found. The file appears to be empty or too short to analyze.");
+              setUploadProgress(null);
+              setUploadedFileName(null);
+              setUploadedFileSize(null);
+              resolve();
+              return;
+            }
+
             setInputText(text);
             setIsCustomText(true);
             handleRunAIAnalysis(text, docTitle);
