@@ -27,3 +27,39 @@
 - Human review: Agree with client-side. Bob again called gemini-3.6-flash an unknown model; Google lists it as current (second instance of the same error). Bob's claim that the document never leaves the browser is only true of the raw PDF: extracted text still goes to the server and to Gemini. Bob omitted the Vite worker configuration pdfjs-dist needs, and mammoth does not handle legacy .doc.
 - Amendments for implementation: server-side cap on contractText length; replace fake-text fallbacks with visible errors; decide DOCX scope; resolve bun vs npm lockfile first.
 - Status: Awaiting team approval. Branch: bob/pdf-extraction
+## Ticket 1 — Local Verification
+
+Ticket 1 PDF extraction implementation reached Stage 4 at commit `4b3b4b5`.
+
+### Verification Results
+
+- TypeScript check: PASS
+- Production build: PASS
+- Valid PDF extraction (`good.pdf`): PASS
+- Password-protected PDF rejection (`encrypted.pdf`): PASS
+- 10 MB file-size validation (`oversize.pdf`): PASS
+- Empty/too-short text validation (`short.txt`): PASS
+
+Runtime verification: **4/4 PASS**
+
+### Bundle Measurement
+
+- Main baseline bundle: ~1,423 kB
+- Ticket 1 bundle: ~1,911 kB
+- Increase: ~488 kB
+- Baseline gzip: ~437 kB
+- Ticket 1 gzip: ~583 kB
+- Gzip increase: ~146 kB
+- PDF worker: ~1,264 kB
+- Server bundle: 14.3 kB -> 14.6 kB
+
+Lazy-loading `pdfjs-dist` is recorded as a possible future optimization.
+
+### Review Status
+
+Local implementation and runtime verification are complete.
+
+Independent teammate verification is pending. Ticket 1 will remain open until that review, automated tests, lint, build, and critical regression tests pass.
+
+Detailed evidence:
+`docs/evidence/after/TICKET_1_VERIFICATION.md`
