@@ -377,46 +377,28 @@ export const ContractAnalyzer: React.FC<ContractAnalyzerProps> = ({
   return (
     <div className="space-y-10 animate-fadeIn pb-12">
 
+
       {/* HERO SECTION */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-amber-950/40 p-8 sm:p-10 rounded-3xl border border-amber-500/20 relative overflow-hidden shadow-2xl">
-        <div className="max-w-3xl space-y-4 relative z-10">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-semibold border border-amber-500/30 font-mono">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>AI Contract Workspace</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-100 tracking-tight font-mono">
-            Understand any contract in minutes—not hours.
-          </h1>
-
-          <p className="text-base text-slate-300 leading-relaxed max-w-2xl">
-            Upload a contract and let AI identify risks, obligations, key clauses, and important dates before you sign.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <button
-              onClick={scrollToUpload}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center space-x-2 transition-all shadow-lg shadow-amber-500/10 cursor-pointer"
-            >
-              <Upload className="w-4 h-4" />
-              <span>Upload Contract</span>
-            </button>
-
-            <button
-              onClick={scrollToSamples}
-              className="px-6 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider flex items-center space-x-2 transition-all border border-slate-700 cursor-pointer"
-            >
-              <FileText className="w-4 h-4 text-amber-400" />
-              <span>Try Sample Contract</span>
-            </button>
-          </div>
+      <section
+        className="relative overflow-hidden rounded-3xl border border-amber-500/40 bg-black bg-contain bg-center bg-no-repeat min-h-[340px] sm:min-h-[520px] flex items-end justify-center p-5 sm:p-10"
+        style={{ backgroundImage: "url('/ledger-homepage.png')" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none" />
+        <div className="relative z-10 flex flex-wrap justify-center gap-3 pb-3">
+          <button
+            onClick={scrollToUpload}
+            className="rounded-xl bg-amber-500 hover:bg-amber-400 px-6 py-3 font-bold text-black"
+          >
+            Upload Contract
+          </button>
+          <button
+            onClick={scrollToSamples}
+            className="rounded-xl border border-amber-500/40 bg-slate-900/90 hover:bg-slate-800 px-6 py-3 font-bold text-white"
+          >
+            Try Sample Contract
+          </button>
         </div>
-
-        {/* Decorative background visual */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 pointer-events-none hidden md:flex items-center justify-center">
-          <Scale className="w-64 h-64 text-amber-400" />
-        </div>
-      </div>
+      </section>
 
       {/* UPLOAD ZONE & RECENT DOCUMENTS GRID */}
       <div ref={uploadZoneRef} className="grid grid-cols-1 lg:grid-cols-12 gap-8">
